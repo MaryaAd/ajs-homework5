@@ -3,7 +3,7 @@ const types = [
 ];
 
 export default class Character {
-  constructor(name, type, attack, defence) {
+  constructor(name, type) {
       if (name.length < 2 || name.length > 10) {
           throw new Error('Invalid name length');
       }
@@ -14,8 +14,8 @@ export default class Character {
       this.type = type;
       this.health = 100;
       this.level = 1;
-      this.attack = attack;
-      this.defence = defence;
+      this.attack = undefined;
+      this.defence = undefined;
   }
 
   levelUp() {

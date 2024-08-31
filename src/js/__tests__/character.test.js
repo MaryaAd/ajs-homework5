@@ -20,12 +20,15 @@ test('New character with invalid character type', () => {
 });
 
 test('Inflict damage to character', () => {
-    const testChar = new Character('Bowy', 'Bowman', 25, 25);
-    testChar.damage(50);
+    const testChar = new Character('Bowy', 'Bowman');
+    testChar.health = 50;
+    testChar.attack = 25;
+    testChar.defence = 25;
+    testChar.damage(10);
     expect(testChar).toEqual({
         name: 'Bowy',
         type: 'Bowman',
-        health: 62.5,
+        health: 42.5,
         level: 1,
         attack: 25,
         defence: 25,
@@ -33,22 +36,27 @@ test('Inflict damage to character', () => {
 });
 
 test('The value of health cannot be negative', () => {
-    const testChar = new Character('Bowy', 'Bowman', 25, 25);
-    testChar.health = 0;
-    testChar.damage(50);
-    expect(testChar.health).toEqual(0);
+    const testChar = new Character('Bowy', 'Bowman');
+    testChar.health = 50;
+    testChar.attack = 10;
+    testChar.defence = 10;
+    testChar.damage(10);
+    expect(testChar.health).toEqual(41);
 });
 
 test('Go to the next level', () => {
-    const testChar = new Character('Bowy', 'Bowman', 25, 25);
+    const testChar = new Character('Bowy', 'Bowman');
+    testChar.health = 50;
+    testChar.attack = 10;
+    testChar.defence = 10;
     testChar.levelUp();
     expect(testChar).toEqual({
         name: 'Bowy',
         type: 'Bowman',
         health: 100,
         level: 2,
-        attack: 30,
-        defence: 30,
+        attack: 12,
+        defence: 12,
     });
 });
 
@@ -59,3 +67,10 @@ test('Go to the next level with zero health', () => {
         'You cannot raise the level with zero health',
     );
 });
+
+test('Character damage', () => {
+    const testChar = new Character('Bowy', 'Bowman');
+    testChar.defence = 10;
+    testChar.damage(500);
+    expect(testChar.health).toBe(0);
+  });
